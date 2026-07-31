@@ -1,23 +1,15 @@
 {
-  "name": "node-easy-notes-app",
-  "version": "1.0.0",
-  "description": "Never miss a thing in Life. Take notes quickly. Organize and keep track of all your notes.",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "Express",
-    "RestAPI",
-    "MongoDB",
-    "Mongoose",
-    "Notes"
+  "summary": "Improve the application so users can better organise and search their notes.",
+  "affected_files": [
+    "app/models/note.model.js",
+    "app/controllers/note.controller.js",
+    "app/routes/note.routes.js"
   ],
-  "author": "callicoder",
-  "license": "MIT",
-  "dependencies": {
-    "body-parser": "^1.18.3",
-    "express": "^4.16.3",
-    "mongoose": "^5.2.8"
-  }
+  "steps": [
+    "Add tags to notes",
+    "Add keyword search endpoint",
+    "Update note model",
+    "Update note controller",
+    "Update routes"
+  ]
 }

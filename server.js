@@ -1,39 +1,21 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+module.exports = (app) => {
+    const notes = require('../controllers/note.controller.js');
 
-// create express app
-const app = express();
+    // Create a new Note
+    app.post('/notes', notes.create);
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }))
+    // Retrieve all Notes
+    app.get('/notes', notes.findAll);
 
-// parse application/json
-app.use(bodyParser.json())
+    // Search Notes (keyword / tags)
+    app.get('/notes/search', notes.search);
 
-// Configuring the database
-const dbConfig = require('./config/database.config.js');
-const mongoose = require('mongoose');
+    // Retrieve a single Note with noteId
+    app.get('/notes/:noteId', notes.findOne);
 
-mongoose.Promise = global.Promise;
+    // Update a Note with noteId
+    app.put('/notes/:noteId', notes.update);
 
-// Connecting to the database
-mongoose.connect(dbConfig.url, {
-	useNewUrlParser: true
-}).then(() => {
-    console.log("Successfully connected to the database");    
-}).catch(err => {
-    console.log('Could not connect to the database. Exiting now...', err);
-    process.exit();
-});
-
-// define a simple route
-app.get('/', (req, res) => {
-    res.json({"message": "Welcome to EasyNotes application. Take notes quickly. Organize and keep track of all your notes."});
-});
-
-require('./app/routes/note.routes.js')(app);
-
-// listen for requests
-app.listen(3000, () => {
-    console.log("Server is listening on port 3000");
-});
+    // Delete a Note with noteId
+    app.delete('/notes/:noteId', notes.delete);
+}
